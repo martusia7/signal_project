@@ -3,7 +3,7 @@ package com.alerts;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 
-/**
+/**s
  * The {@code AlertGenerator} class is responsible for monitoring patient data
  * and generating alerts when certain predefined conditions are met. This class
  * relies on a {@link DataStorage} instance to access patient data and evaluate
@@ -11,6 +11,7 @@ import com.data_management.Patient;
  */
 public class AlertGenerator {
     private DataStorage dataStorage;
+    private AlertManager alertManager;
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -22,6 +23,7 @@ public class AlertGenerator {
      */
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
+        this.alertManager = alertManager;
     }
 
     /**
@@ -35,7 +37,15 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
+        int heartRate = patient.getHeartRate();
+        int patientId = patient.getId();
+        long currentTime = System.currentTimeMillis();
+
+        if (heartRate < 50) {
+            triggerAlert(new Alert(patientId, "Heart rate too low" + heartRate + "bpm", currentTime));
+        } else if (heartRate > 120) {
+            triggerAlert(new Alert(patientId, "Heart rate too high" + heartRate + "bpm", currentTime));
+        }
     }
 
     /**
@@ -47,6 +57,6 @@ public class AlertGenerator {
      * @param alert the alert object containing details about the alert condition
      */
     private void triggerAlert(Alert alert) {
-        // Implementation might involve logging the alert or notifying staff
+        alertManager.dispatchAlert(alert);
     }
 }

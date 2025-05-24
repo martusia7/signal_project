@@ -52,7 +52,38 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
-        return null; //changeeeee
+        List<PatientRecord> result = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            if (record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
+                result.add(record);
+            }
+        }
+        return result;
+    }
+
+     /**
+     * Returns the ID of the patient.
+     *
+     * @return the patient ID
+     */
+    public int getId() {
+        return this.patientId;
+    }
+
+    /**
+     * Returns the most recent heart rate measurement for this patient.
+     *
+     * @return the most recent heart rate value, or -1 if none exists
+     */
+    public int getHeartRate() {
+        PatientRecord latest = null;
+        for (PatientRecord record : patientRecords) {
+            if ("HeartRate".equalsIgnoreCase(record.getRecordType())) {
+                if (latest == null || record.getTimestamp() > latest.getTimestamp()) {
+                    latest = record;
+                }
+            }
+        }
+        return latest != null ? (int) latest.getMeasurementValue() : -1;
     }
 }
