@@ -28,7 +28,7 @@ public class PatientDataReader implements DataReader {
     }
     
     @Override
-    public void webSocket(String url, DataStorage dataStorage) throws IOException {
+    public void connectWebSocket(String url, DataStorage dataStorage) throws IOException {
         // try {
         //     URI uri = new URI(url);
         //     WebSocketClientImpl client = new WebSocketClientImpl(uri, dataStorage);

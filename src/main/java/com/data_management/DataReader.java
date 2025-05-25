@@ -18,5 +18,5 @@ public interface DataReader {
      * @param dataStorage place to store data
      * @throws IOException if there is an error connecting to the server
      */
-    void webSocket(String url, DataStorage dataStorage) throws IOException;
+    void connectWebSocket(String url, DataStorage dataStorage) throws IOException;
 }
