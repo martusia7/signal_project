@@ -13,6 +13,10 @@ public class AlertGenerator {
     private DataStorage dataStorage;
     private AlertManager alertManager;
 
+    private BloodPressureAlertFactory bpFactory = new BloodPressureAlertFactory();
+    private BloodOxygenAlertFactory boFactory = new BloodOxygenAlertFactory();
+    private ECGAlertFactory ecgFactory = new ECGAlertFactory();
+
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
      * The {@code DataStorage} is used to retrieve patient data that this class

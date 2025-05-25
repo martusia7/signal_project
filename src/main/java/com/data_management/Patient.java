@@ -86,4 +86,6 @@ public class Patient {
         }
         return latest != null ? (int) latest.getMeasurementValue() : -1;
     }
+
+    
 }

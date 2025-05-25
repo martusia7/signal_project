@@ -2,9 +2,9 @@ package com.alerts;
 
 // Represents an alert
 public class Alert {
-    private int patientId;
-    private String condition;
-    private long timestamp;
+    protected int patientId;
+    protected String condition;
+    protected long timestamp;
 
     public Alert(int patientId, String condition, long timestamp) {
         this.patientId = patientId;
@@ -22,5 +22,9 @@ public class Alert {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public void notifyAlert() {
+        System.out.println("Generic Alert: " + condition + " for patient " + patientId);
     }
 }
