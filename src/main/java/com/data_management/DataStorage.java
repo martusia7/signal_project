@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alerts.AlertGenerator;
+import com.alerts.AlertManager;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
@@ -14,6 +15,7 @@ import com.alerts.AlertGenerator;
  * patient IDs.
  */
 public class DataStorage {
+    private static DataStorage instance;
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
 
     /**
@@ -22,6 +24,13 @@ public class DataStorage {
      */
     public DataStorage() {
         this.patientMap = new HashMap<>();
+    }
+
+    public static DataStorage getInstance() {
+        if (instance == null) {
+            instance = new DataStorage();
+        }
+        return instance;
     }
 
     /**
@@ -101,8 +110,9 @@ public class DataStorage {
                     ", Timestamp: " + record.getTimestamp());
         }
 
-        // Initialize the AlertGenerator with the storage
-        AlertGenerator alertGenerator = new AlertGenerator(storage);
+        // Initialize the AlertGenerator with the storage and an AlertManager instance
+        AlertManager alertManager = new AlertManager();
+        AlertGenerator alertGenerator = new AlertGenerator(storage, alertManager);
 
         // Evaluate all patients' data to check for conditions that may trigger alerts
         for (Patient patient : storage.getAllPatients()) {
